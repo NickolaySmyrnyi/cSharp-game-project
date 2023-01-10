@@ -12,31 +12,67 @@ namespace Ulearn_project
 {
     public partial class MenuForm : Form
     {
-        Button startButton;
+        Button startButton = new Button();
+        IntroductionScene introductionScene;
+
         public MenuForm()
         {
-            BackgroundImage = Properties.Resources.Background;
+            SetDefaultMenuFormView();
 
+            SetDefaultStartButtonView();
+            SetDefaultStartButtonControls();
+        }
+
+        private void SetDefaultMenuFormView()
+        {
+            SetDefaultMenuFormGeometry();
+            SetDefaultMenuFormAppearance();
+        }
+
+        private void SetDefaultMenuFormAppearance()
+        {
+            BackgroundImage = Properties.Resources.Background;
+        }
+
+        private void SetDefaultMenuFormGeometry()
+        {
             Size = new Size(1200, 1000);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
-
-            addStartButton();
+            CenterToScreen();
         }
 
-        private void addStartButton()
+        private void SetDefaultStartButtonView()
         {
-            startButton = new Button();
+            SetDefaultStartButtonGeometry();
+            SetDefaultStartButtonText();
+            SetDefaultStartButtonAppearance();
+        }
+
+        private void SetDefaultStartButtonText()
+        {
+            startButton.Font = new Font("Arial", 30, FontStyle.Bold, GraphicsUnit.Point);
+            startButton.UseCompatibleTextRendering = true;
             startButton.Text = "Start Game";
+        }
+
+        private void SetDefaultStartButtonGeometry()
+        {
             startButton.Size = new Size(400, 200);
             startButton.Location = new Point(400, 400);
-            startButton.FlatStyle = FlatStyle.Flat;
+        }
+
+        private void SetDefaultStartButtonAppearance()
+        {
             startButton.BackColor = Color.Transparent;
-            startButton.UseCompatibleTextRendering = true;
-            startButton.Font = new Font("Arial", 30, FontStyle.Bold, GraphicsUnit.Point);
+            startButton.FlatStyle = FlatStyle.Flat;
             startButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
             startButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
             startButton.FlatAppearance.BorderSize = 0;
+        }
+
+        private void SetDefaultStartButtonControls()
+        {
             startButton.MouseEnter += (sender, args) =>
             {
                 startButton.ForeColor = Color.White;
@@ -45,7 +81,18 @@ namespace Ulearn_project
             {
                 startButton.ForeColor = Color.Black;
             };
+            startButton.MouseClick += (sender, args) =>
+            {
+                ShowIntroductionScene();
+            };
             Controls.Add(startButton);
+        }
+
+        private void ShowIntroductionScene()
+        {
+            Hide();
+            introductionScene = new IntroductionScene(this);
+            introductionScene.Show();
         }
     }
 }
