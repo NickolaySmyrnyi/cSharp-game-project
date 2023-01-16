@@ -17,29 +17,11 @@ namespace Ulearn_project
 
         public MenuForm()
         {
-            SetDefaultMenuFormView();
-
             SetDefaultStartButtonView();
             SetDefaultStartButtonControls();
-        }
 
-        private void SetDefaultMenuFormView()
-        {
-            SetDefaultMenuFormGeometry();
-            SetDefaultMenuFormAppearance();
-        }
-
-        private void SetDefaultMenuFormAppearance()
-        {
-            BackgroundImage = Properties.Resources.Background;
-        }
-
-        private void SetDefaultMenuFormGeometry()
-        {
-            Size = new Size(1200, 1000);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
-            CenterToScreen();
+            SetDefaultMenuFormView();
+            AddControlsToForm();
         }
 
         private void SetDefaultStartButtonView()
@@ -85,7 +67,6 @@ namespace Ulearn_project
             {
                 ShowIntroductionScene();
             };
-            Controls.Add(startButton);
         }
 
         private void ShowIntroductionScene()
@@ -93,6 +74,41 @@ namespace Ulearn_project
             Hide();
             introductionScene = new IntroductionScene(this);
             introductionScene.Show();
+        }
+
+        private void SetDefaultMenuFormView()
+        {
+            SetDefaultMenuFormGeometry();
+            SetDefaultMenuFormAppearance();
+        }
+
+        private void SetDefaultMenuFormGeometry()
+        {
+            Size = new Size(1200, 1000);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            CenterToScreen();
+        }
+
+        private void SetDefaultMenuFormAppearance()
+        {
+            BackgroundImage = Properties.Resources.Background;
+        }
+
+        private void AddControlsToForm()
+        {
+            Controls.Add(startButton);
+        }
+
+        //enables double buffering for all controls in the form
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleparam = base.CreateParams;
+                handleparam.ExStyle |= 0x02000000;
+                return handleparam;
+            }
         }
     }
 }

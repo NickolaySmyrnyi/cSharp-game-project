@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace Ulearn_project
 {
-    class Helper
+    class HelperModel
     {
         public Image Picture { get; }
         public string CurrentText { get; private set; }
@@ -14,7 +13,7 @@ namespace Ulearn_project
         private int cursor = 0;
         private int numberOfText = 0;
 
-        public Helper(Image image)
+        public HelperModel(Image image)
         {
             Picture = image;
             CurrentText = "";
@@ -77,9 +76,9 @@ namespace Ulearn_project
             text.IsOutputable = false;
             cursor = 0;
             CurrentText = "";
-            ++numberOfText;  
+            ++numberOfText;
         }
 
-        public event Action TextChanged; 
+        public event Action TextChanged;
     }
 }

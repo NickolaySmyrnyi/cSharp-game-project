@@ -10,29 +10,83 @@ namespace Ulearn_project
 {
     public partial class IntroductionScene : Form
     {
-        Helper helperModel = new Helper(Properties.Resources.ThomasShelby);
-        PictureBox helperView = new PictureBox();
+        HelperModel helperModel = new HelperModel(Properties.Resources.ThomasShelby);
+        Panel helperView = new Panel();
+        CoefficientDesk desk = new CoefficientDesk();
         Label helperText = new Label();
 
         public IntroductionScene(MenuForm parent)
         {
-            SetDefaultIntroductionSceneView();
-            SetDefaultIntroductionSceneControls();
-
-            SetDefaultHelperView();
-            SetDefaultHelperControls();
-
             SetDefaultTextView();
             SetDefaultTextControls();
-            SetTextVisualization();
+
+            SetDefaultHelperView();
+            AddControlsToHelper();
+
+            SetDefaultDeskView();
+
+            SetDefaultIntroductionSceneView();
+            SetDefaultIntroductionSceneControls();
+            AddControlsToScene();
 
             helperModel.OutputText(helperModel.Texts[0]);
         }
 
+        private void SetDefaultTextView()
+        {
+            helperText.Size = new Size(400, 150);
+            helperText.Location = new Point(0, 350);
+            helperText.TextAlign = ContentAlignment.MiddleCenter;
+        }
+
+        private void SetDefaultTextControls()
+        {
+            helperModel.TextChanged += () => helperText.Text = helperModel.CurrentText;
+        }
+
+        private void SetDefaultHelperView()
+        {
+            SetDefaultHelperAppearance();
+            SetDefaultHelperGeometry();
+        }
+
+        private void SetDefaultHelperAppearance()
+        {
+            helperView.BackgroundImage = helperModel.Picture;
+        }
+
+        private void SetDefaultHelperGeometry()
+        {
+            helperView.Size = new Size(400, 500);
+            helperView.Location = new Point(800, 500);
+        }
+
+        private void AddControlsToHelper()
+        {
+            helperView.Controls.Add(helperText);
+        }
+
+        private void SetDefaultDeskView()
+        {
+            SetDefaultDeskAppearance();
+            SetDefaultDeskGeometry();
+        }
+
+        private void SetDefaultDeskAppearance()
+        {
+            desk.BackgroundImage = Properties.Resources.woodenDesk;
+        }
+
+        private void SetDefaultDeskGeometry()
+        {
+            desk.Location = new Point(50, 200);
+            desk.Size = new Size(700, 500);
+        }
+
         private void SetDefaultIntroductionSceneView()
         {
-            SetDefaultIntroductionSceneGeometry();
             SetDefaultIntroductionSceneAppearance();
+            SetDefaultIntroductionSceneGeometry();
         }
 
         private void SetDefaultIntroductionSceneAppearance()
@@ -48,6 +102,12 @@ namespace Ulearn_project
             CenterToScreen();
         }
 
+        private void AddControlsToScene()
+        {
+            Controls.Add(helperView);
+            Controls.Add(desk);
+        }
+
         private void SetDefaultIntroductionSceneControls()
         {
             Closing += (sender, args) =>
@@ -56,50 +116,31 @@ namespace Ulearn_project
             };
             KeyDown += (sender, args) =>
             {
-                foreach (var text in helperModel.Texts)
+                if (args.KeyCode == Keys.Enter)
                 {
-                    if (text.IsOutputable)
-                        helperModel.OutputText(text);
+                    MakeHelperOutputText();
                 }
             };
         }
 
-        private void SetDefaultHelperView()
+        private void MakeHelperOutputText()
         {
-            SetDefaultHelperGeometry();
-            SetDefaultHelperAppearance();
+            foreach (var text in helperModel.Texts)
+            {
+                if (text.IsOutputable)
+                    helperModel.OutputText(text);
+            }
         }
 
-        private void SetDefaultHelperAppearance()
+        //enables double buffering for all controls in the form
+        protected override CreateParams CreateParams
         {
-            helperView.Image = helperModel.Picture;
-        }
-
-        private void SetDefaultHelperGeometry()
-        {
-            helperView.Size = new Size(400, 500);
-            helperView.Location = new Point(800, 500);
-        }
-        private void SetDefaultHelperControls()
-        {
-            Controls.Add(helperView);
-        }
-
-        private void SetDefaultTextView()
-        {
-            helperText.Size = new Size(400, 150);
-            helperText.Location = new Point(0, 350);
-            helperText.TextAlign = ContentAlignment.MiddleCenter;
-        }
-
-        private void SetDefaultTextControls()
-        {
-            helperView.Controls.Add(helperText);
-        }
-
-        private void SetTextVisualization()
-        {
-            helperModel.TextChanged += () => helperText.Text = helperModel.CurrentText;
+            get
+            {
+                CreateParams handleparam = base.CreateParams;
+                handleparam.ExStyle |= 0x02000000;
+                return handleparam;
+            }
         }
     }
 }
