@@ -11,9 +11,9 @@ namespace Ulearn_project
         public string TextLine { get; }
         public Timer Timer { get; set; }
 
-        public Text(string someText)
+        public Text(string textLine)
         {
-            TextLine = someText;
+            TextLine = textLine;
             Timer = new Timer();
         }
     }

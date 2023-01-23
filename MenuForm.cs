@@ -17,34 +17,34 @@ namespace Ulearn_project
 
         public MenuForm()
         {
-            SetDefaultStartButtonView();
-            SetDefaultStartButtonControls();
+            SetStartButtonDefaultView();
+            SetStartButtonDefaultControls();
 
-            SetDefaultMenuFormView();
+            SetMenuFormDefaultView();
             AddControlsToForm();
         }
 
-        private void SetDefaultStartButtonView()
+        private void SetStartButtonDefaultView()
         {
-            SetDefaultStartButtonGeometry();
-            SetDefaultStartButtonText();
-            SetDefaultStartButtonAppearance();
+            SetStartButtonDefaultGeometry();
+            SetStartButtonDefaultText();
+            SetStartButtonDefaultAppearance();
         }
 
-        private void SetDefaultStartButtonText()
+        private void SetStartButtonDefaultGeometry()
+        {
+            startButton.Size = new Size(400, 200);
+            startButton.Location = new Point(400, 400);
+        }
+
+        private void SetStartButtonDefaultText()
         {
             startButton.Font = new Font("Arial", 30, FontStyle.Bold, GraphicsUnit.Point);
             startButton.UseCompatibleTextRendering = true;
             startButton.Text = "Start Game";
         }
 
-        private void SetDefaultStartButtonGeometry()
-        {
-            startButton.Size = new Size(400, 200);
-            startButton.Location = new Point(400, 400);
-        }
-
-        private void SetDefaultStartButtonAppearance()
+        private void SetStartButtonDefaultAppearance()
         {
             startButton.BackColor = Color.Transparent;
             startButton.FlatStyle = FlatStyle.Flat;
@@ -53,7 +53,7 @@ namespace Ulearn_project
             startButton.FlatAppearance.BorderSize = 0;
         }
 
-        private void SetDefaultStartButtonControls()
+        private void SetStartButtonDefaultControls()
         {
             startButton.MouseEnter += (sender, args) =>
             {
@@ -76,13 +76,13 @@ namespace Ulearn_project
             introductionScene.Show();
         }
 
-        private void SetDefaultMenuFormView()
+        private void SetMenuFormDefaultView()
         {
-            SetDefaultMenuFormGeometry();
-            SetDefaultMenuFormAppearance();
+            SetMenuFormDefaultGeometry();
+            SetMenuFormDefaultAppearance();
         }
 
-        private void SetDefaultMenuFormGeometry()
+        private void SetMenuFormDefaultGeometry()
         {
             Size = new Size(1200, 1000);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -90,7 +90,7 @@ namespace Ulearn_project
             CenterToScreen();
         }
 
-        private void SetDefaultMenuFormAppearance()
+        private void SetMenuFormDefaultAppearance()
         {
             BackgroundImage = Properties.Resources.Background;
         }

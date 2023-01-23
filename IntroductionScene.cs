@@ -10,91 +10,45 @@ namespace Ulearn_project
 {
     public partial class IntroductionScene : Form
     {
-        HelperModel helperModel = new HelperModel(Properties.Resources.ThomasShelby);
-        Panel helperView = new Panel();
-        CoefficientDesk desk = new CoefficientDesk();
-        Label helperText = new Label();
+        HelperView helperView = new HelperView();
+        HelperModel helperModel = new HelperModel();
+        DeskView deskView = new DeskView();
 
         public IntroductionScene(MenuForm parent)
         {
-            SetDefaultTextView();
-            SetDefaultTextControls();
+            SetHelperDefaultView();
 
-            SetDefaultHelperView();
-            AddControlsToHelper();
+            SetDeskDefaultView();
 
-            SetDefaultDeskView();
-
-            SetDefaultIntroductionSceneView();
-            SetDefaultIntroductionSceneControls();
+            SetIntroductionSceneDefaultView();
+            SetIntroductionSceneDefaultControls();
             AddControlsToScene();
 
             helperModel.OutputText(helperModel.Texts[0]);
         }
 
-        private void SetDefaultTextView()
+        private void SetHelperDefaultView()
         {
-            helperText.Size = new Size(400, 150);
-            helperText.Location = new Point(0, 350);
-            helperText.TextAlign = ContentAlignment.MiddleCenter;
-        }
-
-        private void SetDefaultTextControls()
-        {
-            helperModel.TextChanged += () => helperText.Text = helperModel.CurrentText;
-        }
-
-        private void SetDefaultHelperView()
-        {
-            SetDefaultHelperAppearance();
-            SetDefaultHelperGeometry();
-        }
-
-        private void SetDefaultHelperAppearance()
-        {
-            helperView.BackgroundImage = helperModel.Picture;
-        }
-
-        private void SetDefaultHelperGeometry()
-        {
-            helperView.Size = new Size(400, 500);
             helperView.Location = new Point(800, 500);
         }
 
-        private void AddControlsToHelper()
+        private void SetDeskDefaultView()
         {
-            helperView.Controls.Add(helperText);
+            deskView.Location = new Point(50, 200);
         }
 
-        private void SetDefaultDeskView()
+        private void SetIntroductionSceneDefaultView()
         {
-            SetDefaultDeskAppearance();
-            SetDefaultDeskGeometry();
+            SetIntroductionSceneDefaultAppearance();
+            SetIntroductionSceneDefaultGeometry();
         }
 
-        private void SetDefaultDeskAppearance()
-        {
-            desk.BackgroundImage = Properties.Resources.woodenDesk;
-        }
-
-        private void SetDefaultDeskGeometry()
-        {
-            desk.Location = new Point(50, 200);
-            desk.Size = new Size(700, 500);
-        }
-
-        private void SetDefaultIntroductionSceneView()
-        {
-            SetDefaultIntroductionSceneAppearance();
-            SetDefaultIntroductionSceneGeometry();
-        }
-
-        private void SetDefaultIntroductionSceneAppearance()
+        private void SetIntroductionSceneDefaultAppearance()
         {
             BackgroundImage = Properties.Resources.Stadium;
         }
 
-        private void SetDefaultIntroductionSceneGeometry()
+        private void SetIntroductionSceneDefaultGeometry()
         {
             Size = new Size(1200, 1000);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -105,31 +59,22 @@ namespace Ulearn_project
         private void AddControlsToScene()
         {
             Controls.Add(helperView);
-            Controls.Add(desk);
+            Controls.Add(deskView);
         }
 
-        private void SetDefaultIntroductionSceneControls()
+        private void SetIntroductionSceneDefaultControls()
         {
-            Closing += (sender, args) =>
-            {
-                Application.Exit();
-            };
+            Closing += (sender, args) => Application.Exit();
             KeyDown += (sender, args) =>
             {
                 if (args.KeyCode == Keys.Enter)
                 {
-                    MakeHelperOutputText();
+                    helperModel.MakeHelperOutputText();
                 }
             };
-        }
-
-        private void MakeHelperOutputText()
-        {
-            foreach (var text in helperModel.Texts)
-            {
-                if (text.IsOutputable)
-                    helperModel.OutputText(text);
-            }
+            helperModel.FirstInteraction += () => deskView.PrepareForFirstInteraction();
+            helperModel.TextChanged += () => helperView.SetTextToHelper(helperModel.CurrentText);
+            deskView.FirstInteractionEnded += () => helperModel.EndFirstInteraction();
         }
 
         //enables double buffering for all controls in the form
