@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,12 @@ namespace Ulearn_project
     {
         Button startButton = new Button();
         IntroductionScene introductionScene;
+        PrivateFontCollection pfc = new PrivateFontCollection();
 
         public MenuForm()
         {
+            pfc.AddFontFile("Fonts/lunchds.ttf");
+
             SetStartButtonDefaultView();
             SetStartButtonDefaultControls();
 
@@ -39,7 +43,7 @@ namespace Ulearn_project
 
         private void SetStartButtonDefaultText()
         {
-            startButton.Font = new Font("Arial", 30, FontStyle.Bold, GraphicsUnit.Point);
+            startButton.Font = new Font(pfc.Families[0], 30, FontStyle.Bold, GraphicsUnit.Point);
             startButton.UseCompatibleTextRendering = true;
             startButton.Text = "Start Game";
         }
@@ -92,7 +96,7 @@ namespace Ulearn_project
 
         private void SetMenuFormDefaultAppearance()
         {
-            BackgroundImage = Properties.Resources.Background;
+            BackgroundImage = Image.FromFile("Images/Background.jpg");
         }
 
         private void AddControlsToForm()

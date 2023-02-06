@@ -102,7 +102,7 @@ namespace Ulearn_project
         {
             switch (numberOfText)
             {
-                //after the 5 line, helper suggests to interact with desk
+                //after the 5th line, helper suggests to interact with desk
                 case 5:
                     CanBeContinued = false;
                     FirstInteraction();

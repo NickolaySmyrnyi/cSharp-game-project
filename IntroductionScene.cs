@@ -45,7 +45,7 @@ namespace Ulearn_project
 
         private void SetIntroductionSceneDefaultAppearance()
         {
-            BackgroundImage = Properties.Resources.Stadium;
+            BackgroundImage = Image.FromFile("Images/Stadium.jpg");
         }
 
         private void SetIntroductionSceneDefaultGeometry()
