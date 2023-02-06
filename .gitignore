@@ -1,5 +1,8 @@
-bin
 obj
+Properties
+Resources
 *.csproj
 *.user
 *.Designer.cs
+*.resx
+bin\Debug\netcoreapp3.1\Ulearn_project.*
