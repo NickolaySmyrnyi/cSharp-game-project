@@ -86,7 +86,7 @@ namespace Ulearn_project
 
         private void SetDeskDefaultView()
         {
-            BackgroundImage = Properties.Resources.woodenDesk;
+            BackgroundImage = Image.FromFile("Images/woodenDesk.jpg");
             Size = new Size(700, 520);
         }
 
