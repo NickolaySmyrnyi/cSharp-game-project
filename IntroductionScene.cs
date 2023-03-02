@@ -14,7 +14,7 @@ namespace Ulearn_project
         HelperModel helperModel = new HelperModel();
         DeskView deskView = new DeskView();
 
-        public IntroductionScene(MenuForm parent)
+        public IntroductionScene()
         {
             SetHelperDefaultView();
 
@@ -74,6 +74,7 @@ namespace Ulearn_project
             };
             helperModel.FirstInteraction += () => deskView.PrepareForFirstInteraction();
             helperModel.TextChanged += () => helperView.SetTextToHelper(helperModel.CurrentText);
+            helperModel.StartCustomerScene += () => StartCustomerScene();
             deskView.FirstInteractionEnded += () => helperModel.EndFirstInteraction();
         }
 
@@ -87,5 +88,7 @@ namespace Ulearn_project
                 return handleparam;
             }
         }
+
+        public event Action StartCustomerScene;
     }
 }

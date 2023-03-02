@@ -4,23 +4,19 @@ using System.Text;
 
 namespace Ulearn_project
 {
-    class DeskModel
+    static class DeskModel
     {
-        public List<Horse> Horses { get; set; } = new List<Horse>();
+        static public List<Horse> Horses { get; set; } = new List<Horse>(){new Horse("Black Death"),
+                                                                           new Horse("Little Princess"),
+                                                                           new Horse("Baby"),
+                                                                           new Horse("Fast River"),
+                                                                           new Horse("Julio"),
+                                                                           new Horse("New Era") };
 
-        public DeskModel()
+        static public void SetCoefficients(List<string> coefficients)
         {
-            InitializeHorses();
-        }
-
-        private void InitializeHorses()
-        {
-            Horses.Add(new Horse("Black Death"));
-            Horses.Add(new Horse("Little Princess"));
-            Horses.Add(new Horse("Baby"));
-            Horses.Add(new Horse("Fast River"));
-            Horses.Add(new Horse("Julio"));
-            Horses.Add(new Horse("New Era"));
+            for (int i = 0, n = coefficients.Count; i < n; ++i)
+                Horses[i].Coefficient = double.Parse(coefficients[i]);
         }
     }
 }

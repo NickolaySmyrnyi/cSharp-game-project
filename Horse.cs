@@ -12,7 +12,7 @@ namespace Ulearn_project
         public Horse(string name)
         {
             Name = name;
-            Coefficient = 1;
+            Coefficient = 1.0;
         }
     }
 }

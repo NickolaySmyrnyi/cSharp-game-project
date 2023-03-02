@@ -14,7 +14,8 @@ namespace Ulearn_project
     public partial class MenuForm : Form
     {
         Button startButton = new Button();
-        IntroductionScene introductionScene;
+        IntroductionScene introductionScene = new IntroductionScene();
+        CustomerScene customerScene = new CustomerScene();
         PrivateFontCollection pfc = new PrivateFontCollection();
 
         public MenuForm()
@@ -25,6 +26,7 @@ namespace Ulearn_project
             SetStartButtonDefaultControls();
 
             SetMenuFormDefaultView();
+            SetMenuFormDefaultControls();
             AddControlsToForm();
         }
 
@@ -69,15 +71,15 @@ namespace Ulearn_project
             };
             startButton.MouseClick += (sender, args) =>
             {
+                Hide();
                 ShowIntroductionScene();
             };
         }
 
         private void ShowIntroductionScene()
         {
-            Hide();
-            introductionScene = new IntroductionScene(this);
             introductionScene.Show();
+            Hide();
         }
 
         private void SetMenuFormDefaultView()
@@ -99,10 +101,21 @@ namespace Ulearn_project
             BackgroundImage = Image.FromFile("Images/Background.jpg");
         }
 
+        private void SetMenuFormDefaultControls()
+        {
+            introductionScene.StartCustomerScene += () =>
+            {
+                customerScene.Show();
+                introductionScene.Hide();
+            };
+        }
+
         private void AddControlsToForm()
         {
             Controls.Add(startButton);
         }
+
+
 
         //enables double buffering for all controls in the form
         protected override CreateParams CreateParams

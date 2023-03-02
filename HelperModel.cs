@@ -78,7 +78,7 @@ namespace Ulearn_project
                 Texts[numberOfText + 1].IsOutputable = true;
                 StopTextOutput(text);
             }
-            catch (Exception)
+            catch (ArgumentOutOfRangeException)
             {
                 StopTextOutput(text);
             }
@@ -107,6 +107,10 @@ namespace Ulearn_project
                     CanBeContinued = false;
                     FirstInteraction();
                     break;
+                case 6:
+                    CanBeContinued = false;
+                    StartCustomerScene();
+                    break;
                 default:
                     CurrentText += "\n\nPRESS ENTER";
                     TextChanged();
@@ -122,5 +126,6 @@ namespace Ulearn_project
 
         public event Action FirstInteraction;
         public event Action TextChanged;
+        public event Action StartCustomerScene;
     }
 }
