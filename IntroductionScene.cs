@@ -17,8 +17,10 @@ namespace Ulearn_project
         public IntroductionScene()
         {
             SetHelperDefaultView();
+            SetHelperDefaultControls();
 
             SetDeskDefaultView();
+            SetDeskDefaultControls();
 
             SetIntroductionSceneDefaultView();
             SetIntroductionSceneDefaultControls();
@@ -32,24 +34,26 @@ namespace Ulearn_project
             helperView.Location = new Point(800, 500);
         }
 
+        private void SetHelperDefaultControls()
+        {
+            helperModel.FirstInteraction += () => deskView.PrepareForFirstInteraction();
+            helperModel.TextChanged += () => helperView.SetTextToHelper(helperModel.CurrentText);
+            helperModel.StartCustomerScene += () => StartCustomerScene();
+        }
+
         private void SetDeskDefaultView()
         {
             deskView.Location = new Point(50, 200);
         }
 
+        private void SetDeskDefaultControls()
+        {
+            deskView.FirstInteractionEnded += () => helperModel.EndFirstInteraction();
+        }
+
         private void SetIntroductionSceneDefaultView()
         {
-            SetIntroductionSceneDefaultAppearance();
-            SetIntroductionSceneDefaultGeometry();
-        }
-
-        private void SetIntroductionSceneDefaultAppearance()
-        {
             BackgroundImage = Image.FromFile("Images/Stadium.jpg");
-        }
-
-        private void SetIntroductionSceneDefaultGeometry()
-        {
             Size = new Size(1200, 1000);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -72,10 +76,6 @@ namespace Ulearn_project
                     helperModel.MakeHelperOutputText();
                 }
             };
-            helperModel.FirstInteraction += () => deskView.PrepareForFirstInteraction();
-            helperModel.TextChanged += () => helperView.SetTextToHelper(helperModel.CurrentText);
-            helperModel.StartCustomerScene += () => StartCustomerScene();
-            deskView.FirstInteractionEnded += () => helperModel.EndFirstInteraction();
         }
 
         //enables double buffering for all controls in the form

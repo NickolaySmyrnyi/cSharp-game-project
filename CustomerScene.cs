@@ -15,6 +15,7 @@ namespace Ulearn_project
         CustomerSimulation simulation = new CustomerSimulation();
 
         Button simulationButton = new Button();
+        Button toRacesButton = new Button();
         Label numberOfParticipants = new Label();
         Label dayCounter = new Label();
         List<Label> horseNames = new List<Label>();
@@ -45,6 +46,9 @@ namespace Ulearn_project
 
             SetSimulationButtonDefaultView();
             SetSimulationButtonDefaultControls();
+
+            SetToRacesButtonDefaultView();
+            SetToRacesButtonDefaultControls();
 
             SetCustomerSceneDefaultView();
             SetCustomerSceneDefaultControls();
@@ -154,6 +158,20 @@ namespace Ulearn_project
             };
         }
 
+        private void SetToRacesButtonDefaultView()
+        {
+            toRacesButton.Size = new Size(200, 70);
+            toRacesButton.Location = new Point(900, 850);
+            toRacesButton.Text = "To Races";
+            toRacesButton.Font = new Font(pfc.Families[0], 10, GraphicsUnit.Point);
+            toRacesButton.Hide();
+        }
+
+        private void SetToRacesButtonDefaultControls()
+        {
+            toRacesButton.Click += (sender, args) => StartRacesScene();
+        }
+
         private void SetCustomerSceneDefaultView()
         {
             BackgroundImage = Image.FromFile("Images/books.jpg");
@@ -167,15 +185,15 @@ namespace Ulearn_project
         private void SetCustomerSceneDefaultControls()
         {
             Closing += (sender, args) => Application.Exit();
-            Paint += (sender, args) => RedrawBars(args);
+            Paint += (sender, args) => RedrawBars(args.Graphics);
             simulation.DayPassed += () => AddCostToBars();
         }
 
-        private void RedrawBars(PaintEventArgs e)
+        private void RedrawBars(Graphics gr)
         {
-            DrawAxes(e.Graphics);
+            DrawAxes(gr);
             for (int i = 0, n = moneyBars.Count; i < n; ++i)
-                e.Graphics.FillRectangle(Brushes.MintCream, moneyBars[i]);
+                gr.FillRectangle(Brushes.MintCream, moneyBars[i]);
         }
 
         private void DrawAxes(Graphics gr)
@@ -190,6 +208,8 @@ namespace Ulearn_project
 
         private void AddCostToBars()
         {
+            if (simulation.YearsToRaces == 0)
+                toRacesButton.Show();
             for (int i = 0, n = moneyBars.Count; i < n; ++i)
             {
                 var deltaY = simulation.MoneyOnBets[i] - (750 - moneyBars[i].Y);
@@ -206,6 +226,7 @@ namespace Ulearn_project
         private void AddControlsToCustomerScene()
         {
             Controls.Add(simulationButton);
+            Controls.Add(toRacesButton);
             Controls.Add(numberOfParticipants);
             Controls.Add(dayCounter);
             foreach (var name in horseNames)
@@ -226,5 +247,7 @@ namespace Ulearn_project
                 return handleparam;
             }
         }
+
+        public event Action StartRacesScene;
     }
 }

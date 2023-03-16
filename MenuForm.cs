@@ -16,6 +16,7 @@ namespace Ulearn_project
         Button startButton = new Button();
         IntroductionScene introductionScene = new IntroductionScene();
         CustomerScene customerScene = new CustomerScene();
+        RacesScene racesScene = new RacesScene();
         PrivateFontCollection pfc = new PrivateFontCollection();
 
         public MenuForm()
@@ -107,6 +108,11 @@ namespace Ulearn_project
             {
                 customerScene.Show();
                 introductionScene.Hide();
+            };
+            customerScene.StartRacesScene += () =>
+            {
+                racesScene.Show();
+                customerScene.Hide();
             };
         }
 
