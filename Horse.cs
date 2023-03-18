@@ -9,6 +9,7 @@ namespace Ulearn_project
     {
         public string Name { get; set; }
         public double Coefficient { get; set; }
+        public int TotalBet { get; set; }
 
         public int DistanceRan { get; set; } 
         public int RunningCoefficient { get; set; }
@@ -18,9 +19,15 @@ namespace Ulearn_project
         {
             Name = name;
             Coefficient = 1.0;
+            TotalBet = 0;
             DistanceRan = 0;
             RunningCoefficient = 100;
             CanRun = true;
+        }
+
+        public int CalculateCosts()
+        {
+            return (int)(TotalBet * Coefficient);
         }
     }
 }

@@ -128,10 +128,10 @@ namespace Ulearn_project
         {
             moneyView.BackColor = Color.Transparent;
             moneyView.ForeColor = Color.Gold;
-            moneyView.Text = "Money: " + MoneyModel.Money.ToString();
+            moneyView.Text = "MONEY: " + MoneyModel.Money.ToString();
             moneyView.Font = new Font(pfc.Families[0], 30, GraphicsUnit.Point);
-            moneyView.Size = new Size(400, 70);
-            moneyView.Location = new Point(800, 20);
+            moneyView.Size = new Size(500, 70);
+            moneyView.Location = new Point(700, 20);
         }
 
         private void SetDayCounterDefaultView()
@@ -225,10 +225,10 @@ namespace Ulearn_project
                 toRacesButton.Show();
             for (int i = 0, n = moneyBars.Count; i < n; ++i)
             {
-                var deltaY = simulation.MoneyOnBets[i] - (750 - moneyBars[i].Y);
+                var deltaY = DeskModel.Horses[i].TotalBet - (750 - moneyBars[i].Y);
                 moneyBars[i] = new Rectangle(new Point(moneyBars[i].X, moneyBars[i].Y - deltaY),
                                              new Size(moneyBars[i].Width, moneyBars[i].Height + deltaY));
-                moneyForHorses[i].Text = simulation.MoneyOnBets[i].ToString();
+                moneyForHorses[i].Text = DeskModel.Horses[i].TotalBet.ToString();
                 moneyForHorses[i].Location = new Point(moneyForHorses[i].Location.X, moneyBars[i].Y - 50);
             }
             dayCounter.Text = "DAYS TO RACES: " + simulation.YearsToRaces.ToString();

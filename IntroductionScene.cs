@@ -64,8 +64,8 @@ namespace Ulearn_project
             moneyView.ForeColor = Color.Gold;
             moneyView.Text = "Money: " + MoneyModel.Money.ToString();
             moneyView.Font = new Font(pfc.Families[0], 30, GraphicsUnit.Point);
-            moneyView.Size = new Size(400, 70);
-            moneyView.Location = new Point(800, 20);
+            moneyView.Size = new Size(500, 70);
+            moneyView.Location = new Point(700, 20);
         }
 
         private void SetIntroductionSceneDefaultView()

@@ -13,6 +13,7 @@ namespace Ulearn_project
         RaceSimulation simulation = new RaceSimulation();
 
         ChampionsPanel champions = new ChampionsPanel();
+        MoneyPanel moneyPanel = new MoneyPanel();
         Button startRacesButton = new Button();
         Label moneyView = new Label();
         PictureBox grass1 = new PictureBox();
@@ -31,6 +32,8 @@ namespace Ulearn_project
             SetTrackNamesDefaultView();
 
             SetChampionsDefaultView();
+
+            SetMoneyPanelDefaultView();
 
             SetMoneyDefaultView();
 
@@ -84,14 +87,19 @@ namespace Ulearn_project
             champions.Location = new Point(400, 250);
         }
 
+        private void SetMoneyPanelDefaultView()
+        {
+            moneyPanel.Location = new Point(400, 250);
+        }
+
         private void SetMoneyDefaultView()
         {
             moneyView.BackColor = Color.Transparent;
             moneyView.ForeColor = Color.Gold;
             moneyView.Text = "Money: " + MoneyModel.Money.ToString();
             moneyView.Font = new Font(pfc.Families[0], 30, GraphicsUnit.Point);
-            moneyView.Size = new Size(400, 70);
-            moneyView.Location = new Point(800, 20);
+            moneyView.Size = new Size(500, 70);
+            moneyView.Location = new Point(700, 20);
         }
 
         private void SetStartRacesButtonDefaultView()
@@ -136,6 +144,8 @@ namespace Ulearn_project
             Paint += (sender, args) => DrawRunningTracks(args.Graphics);
             simulation.DistanceRanChanged += () => ChangeHorseLocations();
             simulation.EndOfSimulation += () => champions.ShowChampions(simulation);
+            MoneyModel.MoneyChanged += () => moneyView.Text = "MONEY: " + MoneyModel.Money.ToString();
+            champions.NextPanel += () => moneyPanel.ShowMoney(simulation);
         }
 
         private void DrawRunningTracks(Graphics gr)
@@ -161,6 +171,7 @@ namespace Ulearn_project
         {
             Controls.Add(moneyView);
             Controls.Add(champions);
+            Controls.Add(moneyPanel);
             Controls.Add(startRacesButton);
             Controls.Add(grass1);
             Controls.Add(grass2);

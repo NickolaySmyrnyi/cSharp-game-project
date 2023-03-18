@@ -11,6 +11,7 @@ namespace Ulearn_project
         Timer timer = new Timer();
         Random rand = new Random();
         public Queue<Horse> Champions { get; private set; } = new Queue<Horse>();
+        public Horse Champion { get; private set; } = null;
         public RaceSimulation()
         {
             timer.Interval = 100;
@@ -27,6 +28,8 @@ namespace Ulearn_project
             {
                 foreach (var horse in DeskModel.Horses.OrderBy((x) => x.DistanceRan))
                 {
+                    if (Champion == null && horse.DistanceRan == DeskModel.Horses.Max((x) => x.DistanceRan))
+                        Champion = horse;
                     if (horse.DistanceRan >= 1100 && horse.CanRun)
                     {
                         horse.CanRun = false;

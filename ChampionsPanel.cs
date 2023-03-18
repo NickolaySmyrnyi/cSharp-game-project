@@ -64,6 +64,11 @@ namespace Ulearn_project
         private void SetChampionsPanelDefaultControls()
         {
             Paint += (sender, args) => PaintFrame(args.Graphics);
+            nextButton.Click += (sender, args) =>
+            {
+                NextPanel();
+                Hide();
+            };
         }
 
         private void PaintFrame(Graphics gr)
@@ -88,5 +93,7 @@ namespace Ulearn_project
                 champions[i].Text = (i + 1).ToString() + ". " + simulation.Champions.Dequeue().Name;
             Show();
         }
+
+        public event Action NextPanel;
     }
 }

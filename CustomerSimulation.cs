@@ -7,7 +7,6 @@ namespace Ulearn_project
 {
     class CustomerSimulation
     {
-        public List<int> MoneyOnBets { get; private set; } = new List<int>(6) { 0, 0, 0, 0, 0, 0 };
         Random random = new Random();
         Timer timer = new Timer();
         public int NumberOfPeople { get; private set; } = 0;
@@ -33,8 +32,8 @@ namespace Ulearn_project
                 for (int j = 0; j < numberOfParticipants; ++j)
                 {
                     var amountOfMoney = random.Next(1, GetMoneyDistribution(DeskModel.Horses[i]));
-                    MoneyOnBets[i] += amountOfMoney;
-                    MoneyModel.Money += amountOfMoney;
+                    DeskModel.Horses[i].TotalBet += amountOfMoney;
+                    MoneyModel.AddIncome(amountOfMoney);
                 }
             }
             --YearsToRaces;
