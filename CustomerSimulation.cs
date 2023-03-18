@@ -34,6 +34,7 @@ namespace Ulearn_project
                 {
                     var amountOfMoney = random.Next(1, GetMoneyDistribution(DeskModel.Horses[i]));
                     MoneyOnBets[i] += amountOfMoney;
+                    MoneyModel.Money += amountOfMoney;
                 }
             }
             --YearsToRaces;

@@ -23,15 +23,15 @@ namespace Ulearn_project
         private void SetTextDefaultView()
         {
             helperText.Font = new Font(pfc.Families[0], 10, GraphicsUnit.Point);
-            helperText.Size = new Size(400, 150);
-            helperText.Location = new Point(0, 350);
+            helperText.Size = new Size(385, 200);
+            helperText.Location = new Point(0, 400);
             helperText.TextAlign = ContentAlignment.TopCenter;
         }
 
         private void SetHelperDefaultView()
         {
             BackgroundImage = Image.FromFile("Images/ThomasShelby.jpg");
-            Size = new Size(400, 500);
+            Size = new Size(400, 600);
         }
 
         private void AddControlsToHelper()

@@ -12,6 +12,7 @@ namespace Ulearn_project
 
         public int DistanceRan { get; set; } 
         public int RunningCoefficient { get; set; }
+        public bool CanRun { get; set; }
 
         public Horse(string name)
         {
@@ -19,6 +20,7 @@ namespace Ulearn_project
             Coefficient = 1.0;
             DistanceRan = 0;
             RunningCoefficient = 100;
+            CanRun = true;
         }
     }
 }

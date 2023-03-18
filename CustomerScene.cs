@@ -18,6 +18,7 @@ namespace Ulearn_project
         Button toRacesButton = new Button();
         Label numberOfParticipants = new Label();
         Label dayCounter = new Label();
+        Label moneyView = new Label();
         List<Label> horseNames = new List<Label>();
         List<Label> axisLabels = new List<Label>();
         List<Label> moneyForHorses = new List<Label>();
@@ -39,6 +40,8 @@ namespace Ulearn_project
 
             InitializeHorseNames();
             SetHorseNamesDefaultView();
+
+            SetMoneyDefaultView();
 
             SetDayCounterDefaultView();
 
@@ -121,11 +124,21 @@ namespace Ulearn_project
             }
         }
 
+        private void SetMoneyDefaultView()
+        {
+            moneyView.BackColor = Color.Transparent;
+            moneyView.ForeColor = Color.Gold;
+            moneyView.Text = "Money: " + MoneyModel.Money.ToString();
+            moneyView.Font = new Font(pfc.Families[0], 30, GraphicsUnit.Point);
+            moneyView.Size = new Size(400, 70);
+            moneyView.Location = new Point(800, 20);
+        }
+
         private void SetDayCounterDefaultView()
         {
             dayCounter.Size = new Size(300, 70);
             dayCounter.Location = new Point(50, 50);
-            dayCounter.Text = "days to races: " + simulation.YearsToRaces.ToString();
+            dayCounter.Text = "DAYS TO RACES: " + simulation.YearsToRaces.ToString();
             dayCounter.Font = new Font(pfc.Families[0], 10, GraphicsUnit.Point);
             dayCounter.BackColor = Color.Transparent;
             dayCounter.ForeColor = Color.White;
@@ -134,8 +147,8 @@ namespace Ulearn_project
         private void SetNumberOfParticipantsDefaultView()
         {
             numberOfParticipants.Size = new Size(200, 70);
-            numberOfParticipants.Location = new Point(900, 50);
-            numberOfParticipants.Text = "Customers: " + simulation.NumberOfPeople.ToString();
+            numberOfParticipants.Location = new Point(50, 120);
+            numberOfParticipants.Text = "CUSTOMERS: " + simulation.NumberOfPeople.ToString();
             numberOfParticipants.Font = new Font(pfc.Families[0], 10, GraphicsUnit.Point);
             numberOfParticipants.BackColor = Color.Transparent;
             numberOfParticipants.ForeColor = Color.White;
@@ -218,13 +231,15 @@ namespace Ulearn_project
                 moneyForHorses[i].Text = simulation.MoneyOnBets[i].ToString();
                 moneyForHorses[i].Location = new Point(moneyForHorses[i].Location.X, moneyBars[i].Y - 50);
             }
-            dayCounter.Text = "days to races: " + simulation.YearsToRaces.ToString();
-            numberOfParticipants.Text = "Customers: " + simulation.NumberOfPeople.ToString();
+            dayCounter.Text = "DAYS TO RACES: " + simulation.YearsToRaces.ToString();
+            numberOfParticipants.Text = "CUSTOMERS: " + simulation.NumberOfPeople.ToString();
+            moneyView.Text = "MONEY: " + MoneyModel.Money.ToString();
             Invalidate();
         }
 
         private void AddControlsToCustomerScene()
         {
+            Controls.Add(moneyView);
             Controls.Add(simulationButton);
             Controls.Add(toRacesButton);
             Controls.Add(numberOfParticipants);

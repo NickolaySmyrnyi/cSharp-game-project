@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Ulearn_project
 {
@@ -10,6 +11,7 @@ namespace Ulearn_project
         public string CurrentText { get; private set; }
         public List<Text> Texts { get; private set; } = new List<Text>();
         public bool CanBeContinued { get; private set; } = true;
+        public bool CanPressEnter { get; private set; } = true;
         private int cursor = 0;
         private int numberOfText = 0;
 
@@ -50,6 +52,7 @@ namespace Ulearn_project
                 Change(text);
             };
             text.Timer.Start();
+            CanPressEnter = false;
         }
 
         private void Change(Text text)
@@ -96,6 +99,7 @@ namespace Ulearn_project
             cursor = 0;
             CurrentText = "";
             ++numberOfText;
+            CanPressEnter = true;
         }
 
         private void CheckForPossibleOutputChanges()
